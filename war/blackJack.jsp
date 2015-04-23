@@ -28,7 +28,6 @@
         //jogo nao comecou, habilitar botao start
 %>
     <!-- esse trecho fica apenas para as opcoes que nao terao frames -->
-    <h2>aqui nao...</h2>
     <!--<BODY bgcolor="#FFFFFF" onLoad="document.PlaceBet.bet.focus();">-->
     <BODY bgcolor="#FFFFFF">
     <TABLE width="40%" border="0" cellspacing="1" cellpadding="1" align="center" colspan="2" class="panel">
@@ -68,7 +67,6 @@
         //rodada de apostas, habilitar caixa de texto aposta
 %>
     <!-- esse trecho fica apenas para as opcoes que nao terao frames -->
-    <h2>aqui nao 2...</h2>
     <!--<BODY bgcolor="#FFFFFF" onLoad="document.PlaceBet.bet.focus();">-->
     <BODY bgcolor="#FFFFFF">
     <TABLE width="40%" border="0" cellspacing="1" cellpadding="1" align="center" colspan="2" class="panel">
