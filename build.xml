@@ -1,0 +1,90 @@
+<project name="blackJack" basedir="." default="deploy-local">
+	
+    <property name="jspdir" value="jsp"/>
+    <property name="imgdir" value="images"/>
+    <property name="libdir" value="lib"/>
+    <property name="srcdir" value="src"/>
+    <property name="cnfdir" value="config"/>
+    <property name="dstdir" value="build"/>
+    <property name="docdir" value="build/docs"/>
+    <property name="cladir" value="build/classes"/>
+    <!--<property name="tomcat" value="C:/apache-tomcat-6.0.20"/>-->
+    <property name="tomcat" value="/mnt/192259C3D0205616/DevDev/Tomcat/apache-tomcat-8.0.21"/>
+    <property name="wardir" value="war"/>
+	<property name="warfile" value="blackjack.war"/>
+
+    <path id="classpath">
+	<pathelement location="build/classes"/>
+	<fileset dir="${libdir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="create">
+	    <mkdir dir="${srcdir}"/>
+	    <mkdir dir="${cnfdir}"/>
+	    <mkdir dir="${dstdir}"/>
+	    <mkdir dir="${cladir}"/>
+	    <mkdir dir="${jspdir}"/>
+	    <mkdir dir="${tomcat}/webapps/${jchdir}"/>
+	    <mkdir dir="${imgdir}"/>
+	    <mkdir dir="${libdir}"/>
+	    <mkdir dir="${wardir}"/>
+	    <mkdir dir="${wardir}/images"/>
+	    <mkdir dir="${wardir}/WEB-INF"/>
+	    <mkdir dir="${wardir}/WEB-INF/classes"/>
+	    <mkdir dir="${wardir}/WEB-INF/lib"/>
+    </target>
+
+    <target name="compile" depends="create">
+	<javac srcdir="${srcdir}" destdir="${cladir}" debug="true" includes="**/*.java">
+		<classpath refid="classpath"/>
+	</javac>
+    </target>
+
+    <target name="clean">
+        <delete dir="build"/>
+	<delete file="${warfile}"/>
+	<delete dir="${wardir}"/>
+    </target>
+
+    <target name="war" depends="compile">
+	
+	<copy todir="${wardir}">
+		<fileset dir="${jspdir}" includes="**/*.*" /> 
+	</copy>
+	
+	<copy todir="${wardir}/images">
+		<fileset dir="${imgdir}" includes="**/*.*" /> 
+	</copy>
+
+	<copy todir="${wardir}/WEB-INF/lib">
+		<fileset dir="${libdir}" includes="**/*.*" /> 
+	</copy>
+
+	<copy todir="${wardir}/WEB-INF/classes">
+		<fileset dir="${cladir}" includes="**/*.*" /> 
+	</copy>
+	
+	<copy todir="${wardir}/WEB-INF">
+		<fileset dir="${cnfdir}" includes="**/*.*" /> 
+	</copy>
+	
+	<jar jarfile="${warfile}" basedir="${wardir}" />
+	
+    </target>
+
+    <target name="deploy-local" depends="war">  
+        <echo>Fazendo o deploy no tomcat ...</echo>  
+        <copy file="${warfile}" todir="${tomcat}/webapps" />  
+    </target>  
+	
+</project>
+
+
+
+
+
+
+
+
+
+

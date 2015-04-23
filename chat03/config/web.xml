@@ -1,0 +1,59 @@
+<web-app>
+	<display-name>Cassino Application</display-name>
+	
+	<context-param>
+		<param-name>cassinopropertyfile</param-name>
+		<param-value>cassino.properties</param-value>
+	</context-param>
+	<context-param>
+		<param-name>refreshAfter</param-name>
+		<!-- Add time in seconds after which user's browser window will automatically refresh to display
+		new messages.
+		Default is 10 seconds.
+		-->
+		<param-value>3</param-value>
+	</context-param>
+
+	<!-- This is servlet 2.3 specific feature. It is used to remove a automactically
+	user when his session expires. Without it sessions will expire but users' name will
+	not be removed from list of all Chatters currently chatting.-->
+	<listener>
+		<listener-class>tpw.cassino.SessionListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>tpw.cassino.servlet.LoginServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>manageBlacJack</servlet-name>
+		<servlet-class>tpw.cassino.servlet.ManageBlacJackServlet</servlet-class>
+		<!--<load-on-startup>1</load-on-startup>-->
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>manageBlacJack</servlet-name>
+		<url-pattern>/servlet/manageBlacJack</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/servlet/login</url-pattern>
+	</servlet-mapping>
+
+	<!--
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	-->
+
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>

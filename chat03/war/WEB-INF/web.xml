@@ -1,0 +1,110 @@
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<!-- Written by Sukhwinder Singh (ssruprai@hotmail.com-->
+<web-app>
+
+	<display-name>Chat Application</display-name>
+	<description>This is a small chat Application created using JSP and Servlets</description>
+
+	<context-param>
+		<param-name>chatpropertyfile</param-name>
+		<!--  Name of the chat properties file. It contains the name and description of rooms.
+		-->		
+		<param-value>chat.properties</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>saveRooms</param-name>
+		<!-- The value of saveRooms can be set to true or false.
+		If true then all new rooms added by users will be saved in chat.properties files.
+		Default is false.
+		-->		
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>adminEmail</param-name>
+		<!-- Add an e-mail address of the administrator of this web site. -->
+		<param-value>admin@website.com</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>sessionTimeout</param-name>
+		<!-- Add time in minutes after which user's session will be expired.
+		If user doesn't make any request after provided minutes he will be automatically logged out.
+		Default is 30 minutes.
+
+		-->
+		<param-value>30</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>refreshAfter</param-name>
+		<!-- Add time in seconds after which user's browser window will automatically refresh to display
+		new messages.
+		Default is 10 seconds.
+		-->
+		<param-value>10</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>maxNoOfMessages</param-name>
+		<!--  Maximum Number of messages that are stored in a list which is used to store all messages
+		in a room. After this limit is reached older messages are removed.
+		Default is 25
+		-->		
+		<param-value>25</param-value>
+	</context-param>
+
+	<!-- This is servlet 2.3 specific feature. It is used to remove a automactically
+	user when his session expires. Without it sessions will expire but users' name will
+	not be removed from list of all Chatters currently chatting.-->
+	<listener>
+		<listener-class>sukhwinder.chat.SessionListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>sukhwinder.chat.servlet.LoginServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>manageChat</servlet-name>
+		<servlet-class>sukhwinder.chat.servlet.ManageChatServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>saveInfo</servlet-name>
+		<servlet-class>sukhwinder.chat.servlet.SaveInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>manageChat</servlet-name>
+		<url-pattern>/servlet/manageChat</url-pattern>
+
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/servlet/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>saveInfo</servlet-name>
+		<url-pattern>/servlet/saveInfo</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>login.html</welcome-file>
+		<welcome-file>login.htm</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>
